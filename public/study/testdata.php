@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>count</title>
+    <script type="text/javascript">
+        var c=0
+        var t
+        function timedCount()
+        {
+            document.getElementById('txt').value=c
+            c=c+1
+            t=setTimeout("timedCount()",1000)
+        }
+        function stopCount()
+        {
+            clearTimeout(t)
+        }
+    </script>
+</head>
+<body>
+
+<form>
+    <input type="button" value="Start count!" onClick="timedCount()">
+    <input type="text" id="txt">
+    <input type="button" value="Stop count!" onClick="stopCount()">
+</form>
+
+</body>
+</html>

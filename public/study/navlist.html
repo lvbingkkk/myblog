@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航条什么的</title>
+
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <!--    <script type="text/javascript" src="../static/js/jquery-2.2.4.js"></script>-->
+
+
+    <script type="text/javascript" src="../static/js/me.js"> </script>
+    <script>
+        // 这种隐藏加载时会有闪现。。
+        /*  $(document).ready(function () {
+              $('#shi p').hide();
+              $('ul'). hide();
+
+          })*/
+
+        //状态条加载
+        $(document).ready(function () {
+            $('#b1').animate({value: 100}, 2500).attr('value','0');
+
+            // $('[class]').css('background', '#d7c');
+        })
+
+
+        //允许拖动。。。
+        function allowDrop(ev) {
+            ev.preventDefault();
+
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData('text', ev.target.id);
+
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var  data = ev.dataTransfer.getData('text');
+            ev.target.appendChild(document.getElementById(data));
+
+        }
+    </script>
+
+    <style>
+        /*滑过字体添加的样式*/
+        .fur{color: #e2e;}
+
+        #shi > p{display: none;}
+
+        .menu div { border-radius: 5px;border:1px;text-align: center; padding: 10px 10px;margin: 10px 8px;background-color:#299;width: 150px;}
+        .menu div a{text-decoration: none;color:#000}
+        .menu ul{display: none; list-style-type: lower-greek;}
+
+        #bottom:hover {box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);}
+
+        /*导航条样式*/
+        .navg{box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);}
+        .navg ul{list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /*background-color: #cccccc;*/
+            display: flex;
+            /*background-color: #333;*/
+
+
+        }
+        .navg li{ width: 16.6%; text-align: center;border: 1px solid #bbb;
+           }
+        /*.navg li:last-child {border-right: none; }*/
+        .navg li a,.navg .dropbtn {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+        }
+       /* .navg li:hover , .dropdown:hover .dropbtn {
+            background-color: #56A;
+        }*/
+        .navg .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #dcdccc;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .navg .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .navg .dropdown-content a:hover {background-color: #f1f1f1;}
+        /*.navg .dropdown:hover .dropdown-content {display: block;}*/
+
+
+    </style>
+
+
+
+</head>
+<body style=" background: #e7e7d7;">
+<div style="width:80%;margin: auto;">
+    <nav class="navg">
+        <ul>
+            <li>
+                <a href="#home">Home</a>
+            </li>
+            <li>
+                <a href="#news">News</a>
+            </li>
+            <li class="dropdown" id="li1">
+                <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Dropdown2</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Dropdown3</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+            <li class="dropdown" id="li9">
+                <a href="javascript:void(0)" class="dropbtn">Dropdown4</a>
+                <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!--        <div style="clear: both;"></div>-->
+
+    <div style=" width: 72%;float: left;">
+        <div style="margin:20px 8px;padding:20px 50px;border-right:1px solid #cdcdcd;overflow: hidden;">
+            <button  style="font-size: 22px; border-radius: 10px;border:0;color:#ffffee;background-color: #008CBA;width: 150px;height: 60px;" id="bottom">去底部的按钮</button>
+            <br>
+            <br>
+            <input  autofocus required id="city" placeholder="请输入城市名字">
+
+            <button id="search">查询天气</button>
+
+            <div  id="user"></div>
+
+            <br>
+
+            <div style="" id="shi">
+                <span >  我告诉你怎么查</span>
+                <p   style="font-size: 0.85em;">城市名字前🀄️后不要有空格</p>
+                <b style="font-size: 0.85em;">
+                    <!--<p align="center" >你抓不到<span>我</span>-->
+
+                    <p dir="rtl"  >你抓不到<span>我</span>
+                    </p>
+                </b>
+            </div>
+
+            <br>
+
+            <hr align="left" >
+
+            <br>
+
+            <video src="../static/lib/video1/aishi.mp41" controls>你的浏览器不支持视频</video>
+
+            <br> <br>
+
+            <audio draggable="true" ondragstart="drag(event)" id="au" src="../static/lib/audio/plantes.mp31" controls  loop>一首歌</audio>
+
+            <br> <br>
+
+            <audio controls>
+                <source src="../static/lib/audio/doudou.mp31" type="audio/mpeg">
+                你的浏览器不支持Audio！！
+            </audio>
+
+            <br><br>
+
+            <div id="box" ondrop="drop(event)" ondragover="allowDrop(event)" style="border: 1px solid black;
+            width: 300px ;height: 60px;padding:20px;">
+            </div>
+            <svg width="400" height="100">
+                <circle cx="50" cy="50" r="40" fill="green" />
+                <rect height="80" width="100" x="100" y="10" fill="#2bc" />
+                <ellipse rx="60" ry="40" cx="270" cy="50" style="fill: #e59501" />
+            </svg>
+
+            <br>
+            <br>
+            <canvas id="canvas1" width="500" height="800">
+
+            </canvas>
+
+            <br> <br>
+
+
+
+            <button  style="box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);background: #00ccda ;border: 0;width: 150px;height: 50px;font-size: 18px;border-radius: 8px" id="top">回到顶部</button>
+        </div>
+    </div>
+    <!--            <div style="clear: both;"></div>-->
+    <div style="float:right;width: 28%;">
+        <div style="padding:20px 0px;margin:20px 18px;overflow: hidden;">
+            <p>---></p>
+            <p>-----></p>
+            Status:
+            <progress  max="100" value='6' id="b1" ></progress>
+            <br>
+            <br>
+            <div class="menu">
+                <div id ="item2"><a href="#">我～`~有video</a></div>
+                <ul id ="submenu2">
+                    <li>
+                        <a href="#">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 3</a>
+                    </li>
+                </ul>
+
+                <div  style="" id ="item3"><a href="#">我里面有音乐</a></div>
+                <ul id ="submenu3">
+                    <li>
+                        <a href="#">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 3</a>
+                    </li>
+
+                    <li>
+
+                    </li>
+
+
+                </ul>
+
+                <div id ="item"><a href="#">我是希腊字母排序</a></div>
+                <ul id ="submenu">
+                    <li>
+                        <a href="#">Link 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Link 2</a>
+                    </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li>
+                    <li>
+                        <a href="#">Link 2</a>
+                    </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li><li>
+                    <a href="#">Link 2</a>
+                </li>
+                    <li>
+                        <a href="#">Link 3</a>
+                    </li>
+                </ul>
+            </div>
+
+            <br>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    //导航效果
+    // 如何简化？如何优化其多次进入最后离开不执行多次？？？
+    // 设置setTimeout,及clearTimeout;;添加延时及离开后重新计时！！！
+    //用css的hover伪属性办了！！！！这种没延时，，还可以用css3的工具提示（Tooltip）
+    $('#li9 ').hover(function (event) {
+
+            t9 = setTimeout(function () {
+                $('#li9 > .dropdown-content').show(200);
+                $('#li9').css({background:'#56a'});
+            }, 300);
+
+
+    },function () {
+        clearTimeout(t9);
+        setTimeout(function () {
+            $('#li9 > .dropdown-content').hide(200);
+            $('#li9').removeAttr('style');
+
+        },100)
+
+    })
+
+
+    //canvas图像；；
+    //canvas  这里不能用jQuery 呢？
+    // var c = $('#canvas1');
+    var c = document.getElementById('canvas1');
+    var ctx = c.getContext('2d');
+    ctx.fillStyle='rgba(100,200,200,0.9)';
+    ctx.fillRect(30, 20, 100, 70);
+
+    ctx.font = 'bold 50px Tahoma ';
+    ctx.textAlign = 'start';
+    ctx.fillText('hahaha', 30, 150);
+    ctx.translate(100, 220);
+    ctx.fillText('after haha', 0, 0);
+    ctx.rotate(1);
+    ctx.fillText('after rotate', 0, 0);
+    ctx.scale(1.5, 4);
+    ctx.fillText('after scale', 80, 50);
+
+
+    //输入什么直接显示
+    $('#city').keyup(function () {
+        $('#user').html($('#city').val());
+
+    });
+
+
+   /* $('html').keydown(function (e) {
+        $('#user').html(e.which);
+
+    });*/
+
+    /*window.onkeyup = function (event) {
+        $('#user').html(event.which);
+    };*/
+
+    $('#shi span').on('mouseenter mouseleave',function (event) {
+        // alert('城市名字前后不要有空格');
+        // alert(event.target);
+        // $(this).append($('<p></p>').text('城市名字前🀄️后不要有空格'))
+        // $('#shi').off('click mouseover mouseenter');
+        // $('#shi p').fadeOut();
+        $('#shi p').toggle(500);
+
+        // $('#shi p').slideToggle(500);
+
+
+        // $(this).trigger('mouseenter');
+    })
+
+    $('#search').click(function () {
+        $(this).addClass('fur');
+        // $('#shi').animate({fontSize:'32px',color:'red',opacity:0.3}, 2000).addClass('fur');
+        // $('#shi p').parent().children().fadeTo(1000,0.1).fadeTo(1000,1).addClass('fur');
+        $('#shi  span').fadeTo(1000,0.1).fadeTo(1000,1).addClass('fur').animate({backgroundColor:'#29e'},2000);
+
+
+    });
+
+    //下拉菜单
+    $('#item ').click(function () {
+        $('#submenu ').slideToggle(500).siblings('ul').slideUp(500);
+
+        // $('#submenu').toggle(500);
+        //加载条动画
+        $('#b1').attr('value',0).animate({value: 100}, 1200);
+    })
+
+    $('#item2').click(function () {
+        $('#submenu2').slideToggle(500).siblings('ul').slideUp(500);
+
+        // $('#submenu').toggle(500);
+
+        $('#b1').attr('value',0).animate({value: 100}, 600);
+
+
+    })
+
+    $('#item3').click(function () {
+        $('#submenu3').slideToggle(500).siblings('ul').slideUp(500);
+
+        // $('#submenu').toggle(500);
+
+        $('#b1').attr('value',0).animate({value: 100}, 700);
+
+
+    })
+
+    //直接滚动到页面顶部或底部
+    //这个scrip也要放到html下面呢？？？
+    $('#top').click(function () {
+
+        $("html").animate({
+            // scrollTop: $(this).offset().top - 100 + "px"
+            scrollTop:0+'px'
+        }, 1000);
+
+    })
+
+    $('#bottom').click(function () {
+
+        $("html").animate({
+            scrollTop: $('#top').offset().top  + "px"
+
+        }, 1000);
+
+    })
+
+</script>

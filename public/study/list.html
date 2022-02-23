@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+
+    <title>经纬度查询</title>
+<script>
+    $.ajax({
+        // type: 'Get',
+        // contentType: "application/x-www-form-urlencoded",
+        url: 'https://api.asilu.com/geo/',
+        // data: {id: categoryid, name: 'helenzhou'},
+        dataType: 'jsonp',
+        success: function (data) {
+
+            console.log(data);
+
+            var  tet1 = $('<h4></h4>').text('经度：'+ data.gcj.lng);
+
+            var  tet2 = $('<h4></h4>').text('纬度：'+ data.gcj.lat);
+
+            var  tet3 = $('<h4></h4>').text('位置：'+ data.address);
+
+            // $('#user').before('tet1', 'tet2', 'tet3');
+
+            // $('#user').before(tet1, tet2, tet3);
+
+            // $('#user').after('tet1', 'tet2', );
+
+            // $('#user').after(tet1, tet3, );
+
+            $('#user').append(tet1, tet2, tet3);
+
+
+
+
+
+
+            //.html会删除选定元素下的内容，然后再添加！！！
+            /*$("#user").html('<p>' +'经度：'+ data.gcj.lng+'</p>' );
+
+            $('#user').append('<p>'+'纬度：' + data.gcj.lat+'</p>');
+
+            $('#user').prepend('你当前位置：' + data.address);*/
+
+        }
+    })
+</script>
+</head>
+<body>
+
+    <div id="user"></div>
+    <div id="xianshi"></div>
+    <button id="anniu" >显示</button>
+</body>
+</html>
+<script>
+    $('#anniu ').click(function () {
+        let data = `https://api.asilu.com/geo/`;
+        $('#xianshi').append(data);
+    })
+</script>

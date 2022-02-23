@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECMAScript6</title>
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+
+</head>
+<body>
+    <div id="a1"></div>
+</body>
+</html>
+
+<script>
+    console.log(Array(1).join('fooo'))
+
+   /* //不懂
+    console.log(Array(3+1).join('foo'));
+*/
+ /*  num = [4,5,1,9,2,0].filter(function (x) {
+        return x>3;
+
+    });
+   console.log(num);*/
+
+  /* num = [4, 5, 1, 9, 2, 0].find(x => x > 3);
+   console.log(num);
+
+ num = [4, 5, 1, 9, 2, 0].findIndex(x => x > 3);
+ console.log(num);*/
+
+
+/*
+
+    //不懂，，map filter reduce？？？？？·
+    const arr = ['0', '1', '4', 'a', '9', 'c', '18'];
+    const my_obj = {
+        [Symbol.iterator]: function* () {
+            for (let index of arr) {
+                yield `${index}`;
+            }
+        }
+    };
+    const all = [...my_obj]
+        .map(i => parseInt(i, 10))
+        .map(Math.sqrt)
+        .filter((i) => i < 5)
+        .reduce((i, d) => i + d);
+    console.log(all);
+*/
+
+
+   /* let myIO = {
+        [Symbol.iterator] : function* () {
+            yield 1;yield 2;yield 3;
+
+        }
+    }
+    console.log([...myIO]);
+    console.log(myIO);
+*/
+
+  /* function* idMaker() {
+       let index =0;
+       while (index<5)
+       yield index++;
+
+   }
+   var gen = idMaker();
+   console.log(gen.next().value);
+   console.log(gen);
+*/
+
+    // console.log(JSON);
+
+   /* $.ajax({
+        // type: 'post',
+        // contentType: "application/x-www-form-urlencoded",
+        url: 'http://restapi.amap.com/v3/weather/weatherInfo?key=7c6643fee0bba8be1bec268046c17e2f&city=德州',
+        // data: {id: categoryid, name: 'helenzhou'},
+        dataType: 'jsonp',
+        success: function (data) {
+
+            console.log(data);
+            var res = JSON.stringify(data);
+            // var end = JSON.parse(res);
+            // console.log(end);
+
+            console.log(res);
+
+        }
+    })*/
+
+    setTimeout(function () {
+        console.log('w1');
+       /* setTimeout(function () {
+            console.log('w2');
+
+        },2000);*/
+
+    },2000);
+    console.log('end');
+
+    /*setInterval(function () {
+        console.log('w1');
+        setInterval(function () {
+            console.log('w2');
+
+        },5000);
+
+    },1000);
+    console.log('engdd');*/
+
+
+    /*function my(w,x,y,z) {
+        console.log(w + x + y + z);
+
+    }
+
+    var args = [1, 2, 3];
+    my.apply(null, args.concat(4));*/
+
+   /* const my = (x,y,z,w)=>{
+        console.log(x + y + z + w);
+    }
+    let args = [1, 2, 3];
+
+    my(...args, 4);*/
+
+    /*let map = new Map();
+    map.set('k1', 'v1').set('k2', 'v2');
+    console.log(map);
+    // console.log(map.entries());
+    for (let kv of map.entries()) {
+        console.log(kv);
+    }
+    for (let kv of map) {
+        console.log(kv[0],':',kv[1]);
+    }
+
+    let map1 =new Map([['k1', 'v1'], ['k2', 'v2']]);
+    console.log(map1);
+    for (let kv of map1) {
+        // console.log(kv);
+        console.log(kv[0],':',kv[1]);
+    }*/
+
+  /*  let list = ['x', 'y', 'z'];
+    for (let v of list) {
+        console.log(v);
+    }*/
+
+   /* let o = {a:1,b:2, c: 3};
+    for (let v in o) {
+        console.log(v);
+    }*/
+
+</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+
+    <title>号码归属查询</title>
+
+    <script>
+        window.onload= function () {
+            var oSearch = document.getElementById('search');
+            var oCity = document.getElementById('city');
+            oSearch.onclick = function () {
+                if (!oCity.value) {
+                    alert('请输入要查询的电话号码')
+
+                }else{
+                    $.ajax({
+                        // type: 'Get',
+                        // contentType: "application/x-www-form-urlencoded",
+                        url: 'https://api.asilu.com/phone?phone='+oCity.value,
+                        // data: {id: categoryid, name: 'helenzhou'},
+                        dataType: 'jsonp',
+                        success: function (data) {
+
+                            // console.log(data);
+                            $("#user").html('号码归属地:'+ data.city );
+                            $('#user').append('，区号：' + data.areacode);
+
+                            $('#user').append('，信号类型：' + data.sp);
+                        }
+                    })
+                }
+
+
+            };
+        }
+
+    </script>
+
+</head>
+<body>
+<frame rows="10%">
+<frame></frame>
+<frameset cols='40%,50%'>
+    <frame></frame>  <frame></frame>
+</frameset>
+</frameset>
+
+<input id="city" >
+<button id="search">查询号码归属地</button>
+
+<div id="user"></div>
+</body>
+</html>

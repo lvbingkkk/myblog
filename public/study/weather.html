@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ikoeng-天气查询</title>
+    <link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/plugins/bootstrap/css/buttons.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script>
+        function download(data) {
+            var oT1 = document.getElementById('t1');
+            var oInfo =document.getElementById('info')
+            var oHit = document.getElementById("hit");
+            oInfo.innerHTML = `城市：${data.city},  pm2.5:${data.pm25}`;
+            var arr =data.weather;
+            str=``;
+            for (var i = 0; i < arr.length; i++) {
+                str += `
+<tr>
+                    <td>${arr[i].date}</td>
+                    <td>${arr[i].weather}</td>
+                    <td>${arr[i].wind}</td>
+                    <td>${arr[i].temp}</td>
+                </tr>
+               `;
+
+            }
+
+            //给元素里的内容赋值
+            $.post('/service/weather.php', function (res) {
+
+                oHit.innerHTML = "该查询器已查询过"+res.hit+"次了～";
+
+            },'json');
+            oT1.innerHTML =str;
+
+        }
+    </script>
+    <script>
+        window.onload= function () {
+            var oSearch = document.getElementById('search');
+            var oCity = document.getElementById('city');
+            oSearch.onclick = function () {
+                if (!oCity.value) {
+                    alert('请输入要查询的城市名称')
+
+                }else{
+                    var oScript = document.createElement('script');
+                    oScript.src =`http://api.asilu.com/weather/?city=${oCity.value}&callback=download`;
+                    document.body.appendChild(oScript);
+                }
+
+
+            };
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2>天气查询</h2>
+            <span id="info"></span>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="city">城市名字</label>
+                <input id="city" type="text" class="form-control"/>
+
+            </div>
+            <button id="search" style="margin-top: 15px;"  class="button button-3d button-action button-pill form-control" >查询该城市的天气</button>
+        </div>
+        <div class="panel-footer">
+            <table class="table table-bordered table-hover">
+                <thead> <tr>
+                    <th>日期</th>
+                    <th>天气</th>
+                    <th>风向</th>
+                    <th>气温</th>
+                </tr>
+                </thead>
+                <tbody id="t1"></tbody>
+
+
+
+            </table>
+        </div>
+    </div>
+    <div id="hit"></div>
+
+</div>
+</body>
+
+</html>
+<!--<script type="text/javascript">-->
+<!--    function dosomething(jsondata){-->
+<!--        //处理获得的json数据-->
+<!--        alert(jsondata);-->
+<!--    }-->
+<!--</script>-->
+<!--<script src="/study/weather.php?callback=dosomething"></script>-->
