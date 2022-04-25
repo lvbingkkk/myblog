@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特效</title>
+</head>
+<style>
+    #canvas{
+        /* width: 50%;
+        height: 50%; */
+        background-color: aquamarine;
+    }
+</style>
+<body>
+    <canvas id="canvas" width="1400" height="900" >
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+</body>
+</html>
+<script>          
+    //写上window.onloadq后期加载图片缓慢时,就不显示打转图标了
+    window.onload = function()
+    {
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+        let x = 680;
+        let y = 800;
+        let coinx = Math.random() * (1200-50);
+        let coiny = Math.random() * (800-90) + 40;       
+        let dir = 1;
+        let ac = "ff", bc = "aa", cc = "11", dc ="aa";
+
+
+        
+        // context.moveTo(100, 100)
+        // context.lineTo(50, 200)
+        // context.lineTo(150, 200)
+        // context.lineTo(100, 100)
+        // context.stroke()
+
+        let t;
+        let speed = 200;
+        let fpsCon = 0;
+        let score = 0;
+
+        draw();
+        function draw()
+        {
+            //计算fps
+            let timePassed = (Date.now() - t) / 1000;
+            t = Date.now();
+            let fps = Math.round(1 / timePassed);            
+
+            context.beginPath();
+            context.font = "25px Arial";
+            context.fillStyle = "black";
+            //每20帧更新一次fps显示的数值
+            if(fpsCon%20 == 0)
+            {
+                context.clearRect(0, 0, 1400, 900);
+                context.fillText("FPS: " + fps + "\t" + " Score: " + score, 20, 30);
+
+                
+                
+                context.beginPath();
+                context.moveTo(x-20, y+10);
+                context.quadraticCurveTo(x, y+50, x+60, y);
+                context.lineWidth = 3;
+                context.strokeStyle="#"+ac+bc+cc;
+                context.stroke();
+
+            }
+            fpsCon += 1;
+            if(fpsCon > 100)
+            {
+                fpsCon = 1;
+            }
+           
+            // context.clearRect(0, 35, 1400, 900);
+            // context.beginPath();
+            // context.rect(coinx, coiny, 50, 50);
+            // context.fillStyle="#e3c228";
+            // context.fill();
+
+            context.beginPath();
+            context.rect(x, y, 30, 100);
+            context.fillStyle="red";
+            context.fill();
+            
+            if(timePassed)
+            {               
+                y += dir*(speed * timePassed);
+                dc = ac;
+                ac = bc;
+                bc = cc;
+                cc = dc;
+            }
+            if(y<40 || y>800)
+            {
+                dir *= -1;
+            }
+           
+
+      
+            window.requestAnimationFrame(draw);
+        }
+
+
+        // console.log("zou")
+
+        // setInterval(draw, 16);
+       
+
+    }
+   
+</script>

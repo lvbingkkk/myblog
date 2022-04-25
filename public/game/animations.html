@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+<style>
+    #canvas{
+        /* width: 50%;
+        height: 50%; */
+        background-color: aquamarine;
+    }
+</style>
+<body>
+    <canvas id="canvas" width="1200" height="800" >
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+    <div>
+        <span>speed</span>
+        <input id="speed" name="setspeed" placeholder="请输入速度"  />
+        <button  onclick="search();" href="">确 定</button>
+
+    </div>
+    
+    <div align="center">
+        <button id="up">?</button><br />
+        <button id="left">?</button>
+        <button id="down">?</button>
+        <button id="right">?</button>       
+    </div>
+
+
+</body>
+</html>
+<script>    
+    
+    let setspeed ;
+    function search()
+    {
+        setspeed = document.getElementById("speed").value;
+        console.log(setspeed)
+    }
+        
+    //写上window.onloadq后期加载图片缓慢时,就不显示打转图标了
+    window.onload = function()
+    {
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+        let x = 550;
+        let y = 330;
+        let coinx = Math.random() * (1200-50);
+        let coiny = Math.random() * (800-90) + 40;       
+        let dir = 0;
+
+        let right = document.getElementById("right");
+        let up = document.getElementById("up");
+        let feft = document.getElementById("left");
+        let down = document.getElementById("down");
+        right.onmousedown = function rights()
+        {
+            dir = 1;
+        }
+        right.onmouseup = function righte()
+        {
+            dir = 0;
+        }
+
+        up.onmousedown = function ups()
+        {
+            dir = 4;
+        }
+        up.onmouseup = function upe()
+        {
+            dir = 0;
+        }
+        
+        down.onmousedown = function downs()
+        {
+            dir = 3;
+        }
+        down.onmouseup = function downe()
+        {
+            dir = 0;
+        }
+        
+        left.onmousedown = function lefts()
+        {
+            dir = 2;
+        }
+        left.onmouseup = function lefte()
+        {
+            dir = 0;
+        }
+
+        document.onkeydown = keyDown;
+        //在Document对象中注册keyDown事件处理函数
+        function keyDown(event){  // 方向键控制元素移动函数
+            var event = event || window.event;  // 标准化事件对象
+            switch(event.keyCode){  // 获取当前按下键盘键的编码
+                case 37 :  // 按下左箭头键，向左移动5个像素
+                    dir = 2;
+                    break;
+                case 39 :  // 按下右箭头键，向右移动5个像素
+                    dir = 1;
+                    break;
+                case 38 :  // 按下上箭头键，向上移动5个像素
+                    dir = 4;
+                    break;
+                case 40 :  // 按下下箭头键，向下移动5个像素
+                    dir = 3;
+                    break;
+            }
+            //如果return false ,input输入字母及数字有问题
+            // return false
+        }
+
+        document.onkeyup = keyUp;
+        function keyUp(event){  
+            var event = event || window.event;    
+            switch(event.keyCode){  
+                case 32:
+                    dir = 0;
+                // default :
+                //     dir = 0;
+                //     break;
+            }
+            return false
+        }
+        
+        // context.moveTo(100, 100)
+        // context.lineTo(50, 200)
+        // context.lineTo(150, 200)
+        // context.lineTo(100, 100)
+        // context.stroke()
+
+        let t;
+        let speed = 200;
+        let fpsCon = 0;
+        let score = 0;
+
+        draw();
+        function draw()
+        {
+            let timePassed = (Date.now() - t) / 1000;
+            // console.log(timePassed)
+            t = Date.now();
+            let fps = Math.round(1 / timePassed);            
+
+            context.beginPath();
+            context.font = "25px Arial";
+            context.fillStyle = "black";
+            //每20帧更新一次fps显示的数值
+            if(fpsCon%20 == 0)
+            {
+                context.clearRect(0, 0, 1200, 35);
+                context.fillText("FPS: " + fps + "\t" + " Score: " + score, 20, 30);
+
+            }
+            fpsCon += 1;
+            if(fpsCon > 100)
+            {
+                fpsCon = 1;
+            }
+           
+            context.clearRect(0, 35, 1200, 800);
+            context.beginPath();
+            context.rect(coinx, coiny, 50, 50);
+            context.fillStyle="#e3c228";
+            context.fill();
+
+            context.beginPath();
+            context.rect(x, y, 100, 100);
+            context.fillStyle="red";
+            context.fill();
+            
+
+            if(setspeed)
+            {
+                speed = setspeed;
+                console.log("setspeed")
+            }
+
+            if(timePassed && dir ==1)
+            {
+                if(x+100 < 1200)
+                {
+                    x += dir*(speed * timePassed);
+                }
+            }else if(timePassed && dir ==2)
+            {
+                if(x >0)
+                {
+                    x -= (speed * timePassed);
+                }
+            }else if(timePassed && dir == 3)
+            {
+                if(y+100 < 800)
+                {
+                    y += (speed * timePassed);
+                }
+            }else if(timePassed && dir == 4)
+            {
+                if(y > 40)
+                {
+                    y -= (speed * timePassed);
+                }
+            }
+            // x += 10;
+
+            // if(x >= 1200 - 100 || x <= 0)
+            // {
+            //     // x = -100;
+            //     // speed = 0;
+            //     dir *= -1;
+            // }
+
+            if(coinx <= x+100 && x <= coinx+50 && coiny <= y+100 && y < coiny+50)
+            {
+                score++;
+                coinx = Math.random() * (1200-50);
+                coiny = Math.random() * (800-90) + 40;
+                // console.log(score);
+            }
+            window.requestAnimationFrame(draw);
+        }
+
+
+        // console.log("zou")
+
+        // setInterval(draw, 16);
+       
+
+    }
+   
+</script>

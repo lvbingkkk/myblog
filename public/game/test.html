@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+<style>
+    #canvas{
+        /* width: 50%;
+        height: 50%; */
+        background-color: aquamarine;
+    }
+</style>
+<body>
+    <canvas id="canvas" width="1200" height="800" >
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+</body>
+</html>
+<script>    
+    //写上window.onloadq后期加载图片缓慢时,就不显示打转图标了
+    window.onload = function()
+    {
+        let img = new Image();
+        img.src = '../static/image/chart.png';
+
+        let canvas = document.getElementById("canvas");
+        let context = canvas.getContext("2d");
+        context.beginPath();
+        context.moveTo(50, 100);
+        context.lineTo(400,200);
+        context.stroke();
+
+        context.beginPath();
+        context.rect(50,100, 450, 200);
+        // context.fillStyle = "red";
+        // context.fill();
+        context.lineWidth = 5;
+        context.strokeStyle = 'red';
+        context.stroke();
+
+
+        context.beginPath();
+        context.arc(400, 200, 100, -1*Math.PI/10, 1*Math.PI);
+        context.fillStyle = "blue";
+        context.fill();
+        context.stroke();
+
+        context.font = '42px Apial';
+        context.lineWidth = 5;
+
+        context.strokeStyle = "#ffaa11";
+        context.strokeText("hello world", 200,100);
+        context.fillStyle = "#aa11ff";
+        context.fillText("hello world",200, 100);
+
+        //为何首次加载不显示图像
+        //解决首次加载不显示图像问题,加unload事件
+        img.onload = function()
+        {
+            context.drawImage(img, 500, 300, 700, 500);
+            console.log(document.images.length);
+
+        }
+
+        // context.drawImage(img, 500, 300, 700, 500);
+        // context.drawImage(img, 500, 300);
+
+
+       
+
+    }
+</script>
